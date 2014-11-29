@@ -1,0 +1,47 @@
+{
+    "cards": [
+        {
+            "id": "blacklotus",
+            "title": "Black Lotus",
+            "description": "Artifact. 0, Discard this card: Gain 3 mana.",
+            "flavour_text": "where did you get this?!",
+            "image": "http://placekitten.com/200/200/",
+            "type": "instant", /* or permanent */
+            "conditions": [
+                {
+                    "resource": "food",
+                    "amount": 2
+                }
+            ],
+            "modifiers": [
+                {
+                    "resource": "food",
+                    "change": -2
+                }
+            ]
+        }
+    ],
+    "decks": [
+        {
+            "id": "actions",
+            "cards": {
+                "blacklotus": 100
+            }
+        }
+    ],
+    "resources": [
+        {
+            "id": "food",
+            "title": "Pizza"
+            "initial": 0,
+            "icon": "..."
+        }
+    ],
+    "win_conditions": [
+        {
+            "type": "resource",
+            "resource": "food",
+            "amount": "100"
+        }
+    ],
+}
