@@ -9,7 +9,7 @@
             "conditions": [
                 {
                     "resource": "food",
-                    "amount": 2
+                    "amount": 3
                 }
             ],
             "modifiers": [
@@ -28,13 +28,13 @@
             "conditions": [
                 {
                     "resource": "food",
-                    "amount": 2
+                    "amount": 4
                 }
             ],
             "modifiers": [
                 {
                     "resource": "food",
-                    "change": -2
+                    "change": 8
                 }
             ]
         }
