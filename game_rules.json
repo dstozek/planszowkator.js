@@ -1,12 +1,30 @@
 {
-    "cards": [
-        {
-            "id": "blacklotus",
+    "cards": {
+        "blacklotus": {
             "title": "Black Lotus",
+            "description":" Artifact. 0, Discard this card: Gain 3 mana.",
+            "flavour_text": "where did you get this?!",
+            "image": "http://placekitten.com/200/200/",
+            "type": "instant",
+            "conditions": [
+                {
+                    "resource": "food",
+                    "amount": 2
+                }
+            ],
+            "modifiers": [
+                {
+                    "resource": "food",
+                    "change": -2
+                }
+            ]
+        },
+        "whitelotus": {
+            "title": "White Lotus",
             "description": "Artifact. 0, Discard this card: Gain 3 mana.",
             "flavour_text": "where did you get this?!",
             "image": "http://placekitten.com/200/200/",
-            "type": "instant", /* or permanent */
+            "type": "instant",
             "conditions": [
                 {
                     "resource": "food",
@@ -20,19 +38,20 @@
                 }
             ]
         }
-    ],
+    },
     "decks": [
         {
             "id": "actions",
             "cards": {
-                "blacklotus": 100
+                "blacklotus": 10,
+                "whitelotus": 10
             }
         }
     ],
     "resources": [
         {
             "id": "food",
-            "title": "Pizza"
+            "title": "Pizza",
             "initial": 0,
             "icon": "..."
         }
@@ -44,4 +63,10 @@
             "amount": "100"
         }
     ],
+    "hands": {
+        "deck": "actions",
+        "count": 2,
+        "draw": "after_turn",
+        "can_swap": true
+    }
 }

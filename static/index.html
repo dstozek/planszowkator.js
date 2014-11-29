@@ -20,11 +20,23 @@
     <![endif]-->
   </head>
   <body>
-    <h2>Current players:</h2>
-    <ul id="players" class="list-group"></ul>
-    Set nick: <input type="text" id="nick"> <button id="nick_accept" class="btn btn-lg btn-primary">Accept</button>
-    
+    <div id="lobby">
+        <h2>Current players:</h2>
+        <ul id="players" class="list-group"></ul>
+        Set nick: <input type="text" id="nick"> <button id="nick_accept" class="btn btn-lg btn-primary">Accept</button>
+        
+        <br /><br />
+        <button id="start_game" class="btn btn-lg btn-success">Start game</button>
 
+    </div>
+    <div id="game" style="display:none">
+      <h1>Game</h1>
+      <h2>Players</h2>
+      <div id="players-game"></div>
+      <h2>My Hand</h2>
+      <ul id="my-hand"></ul>
+    </div>
+    <div id="gameover" style="display:none"><h1>Everyone disconnected</h1><h2>F5 to play again</h2></div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     

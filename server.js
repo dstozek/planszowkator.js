@@ -3,6 +3,7 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var _ = require('underscore');
+var Game = require('./game').Game;
 
 server.listen(process.env.PORT, process.env.IP);
 
@@ -58,7 +59,7 @@ var Lobby = (function() {
     };
     
     self.send_list_to = function(p) {
-        p.socket.emit('lobby list', self.players.map(function(p) { return p.name; }));
+        p.socket.emit('lobby list', _(self.players).pluck('name'));
     };
     
     self.can_player_start_game = function(p) {
@@ -85,11 +86,3 @@ var Lobby = (function() {
     
     return self;
 })();
-
-var Game = function(players) {
-    
-    players.forEach(function(p) {
-        p.socket.emit("Game started");
-    });
-    
-};
