@@ -23,6 +23,9 @@ io.on('connection', function (socket) {
     Lobby.send_list_to(player);
     
     socket.on('name', function(name) {
+        if (player.name) {
+            return;
+        }
         player.name = name;
         Lobby.add_player(player);
     });

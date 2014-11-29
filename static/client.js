@@ -4,7 +4,7 @@ var socket = io.connect('/');
 socket.on('lobby list', function(nicks) {
     $('#players').html('');
     nicks.forEach(function(n) {
-        $('<li>').text(n).appendTo($('#players'));
+        $('<li>').text(n).appendTo($('#players')).addClass("list-group-item");
     });
 });
 
