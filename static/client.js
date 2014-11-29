@@ -9,10 +9,13 @@ socket.on('lobby list', function(names) {
 });
 
 var PLAYER_DIVS = [];
+var MY_IDX = null;
+
 
 socket.on('Game started', function(player_names, my_idx) {
     $('#lobby').hide();
     $('#game').show();
+    MY_IDX = my_idx;
     player_names.forEach(function (p, i) {
         if (i != my_idx) {
             var d = $('<div>').text(p).appendTo($('#players-game'))
@@ -29,7 +32,12 @@ socket.on('Game over', function() {
 });
 
 socket.on('hand add', function(card) {
-    $('<li>').text(JSON.stringify(card)).appendTo($('#my-hand')).addClass("list-group-item");
+    var d = $('<div>').text(JSON.stringify(card)).appendTo($('#my-hand')).addClass("list-group-item");
+    d.click(function() {
+        console.log("playing card", card);
+        socket.emit('play card', card.id);
+        
+    });
 });
 
 
@@ -39,6 +47,11 @@ socket.on('hand add hidden', function(id) {
     }
 });
 
+socket.on('turn', function(player_id) {
+    console.log("It's player "+player_id+"'s turn now.");
+    $("#my-hand").toggleClass("active", player_id == MY_IDX);
+    
+});
 
 $('#nick_accept').click(function() {
     var n = $('#nick').val();

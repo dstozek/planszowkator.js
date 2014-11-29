@@ -7,6 +7,7 @@ var Game = require('./game').Game;
 
 server.listen(process.env.PORT, process.env.IP);
 
+
 app.use('/static', express.static(__dirname + '/static'));
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/static/index.html');
@@ -40,6 +41,12 @@ io.on('connection', function (socket) {
         if (player.game) {
             player.game.remove_player(player);   
         }
+    });
+    
+    socket.on('play card', function(card_id) {
+       if (player.game) {
+           player.game.play_card(player, card_id);
+       } 
     });
     
 });
@@ -84,5 +91,8 @@ var Lobby = (function() {
         self.players.forEach(self.send_list_to);
     };
     
+    
     return self;
 })();
+
+console.log("Running");
