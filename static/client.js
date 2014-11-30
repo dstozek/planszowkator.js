@@ -52,8 +52,8 @@ socket.on('Game over', function() {
     $('#gameover').show();
 });
 
-socket.on('hand add', function(card) {
-    var d = $('<div>').appendTo($('#my-hand')).addClass("card");
+var make_card = function(card) {
+    var d = $('<div>').addClass("card");
     //d.text(JSON.stringify(card));
     
     $('<p><em>'+card.definition.type+'</em></p>').appendTo(d);
@@ -77,6 +77,19 @@ socket.on('hand add', function(card) {
     });
     d.attr('data-card-id', card.id);
     d.hide().delay(800).show('fast');
+    
+    return d;
+}
+
+socket.on('hand add', function(card) {
+    var c = make_card(card);
+    c.appendTo($('#my-hand'));
+});
+
+socket.on('table add', function(card) {
+    console.log("table add", card);
+    var c = make_card(card);
+    c.appendTo($('#table'));
 });
 
 socket.on('hand remove', function(card_id) {
@@ -97,7 +110,11 @@ socket.on('hand add hidden', function(id, player_id) {
 
 socket.on('turn', function(player_id) {
     console.log("It's player "+player_id+"'s turn now.");
-    $("#my-hand").toggleClass("active", player_id == MY_IDX);
+    if (player_id == MY_IDX) {
+        $("#my-turn-indicator").show('slow');
+    } else {
+        $("#my-turn-indicator").hide('slow');
+    }
     
 });
 

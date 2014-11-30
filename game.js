@@ -12,6 +12,7 @@ var Game = function(players) {
         decks: {},
         hand_deck: null,
         whose_turn: null,
+        table: [],
         rules: DefaultRules
     };
     
@@ -42,6 +43,9 @@ var Game = function(players) {
         
         var card = _(player.hand).find(function(c) { return c.id == card_id});
         if (!card) {
+            card = _(self.table).find(function(c) { return c.id == card_id});
+        }
+        if (!card) {
             return;
         }
         if (!self.is_card_playable(card.definition, player)) {
@@ -49,6 +53,7 @@ var Game = function(players) {
         }
         self.resolve_card(card.definition, player);
         player.hand = _(player.hand).without(card);
+        self.table = _(self.table).without(card);
         self.players.forEach(function(p) {
             p.socket.emit('hand remove', card.id);
         });
@@ -70,10 +75,11 @@ var Game = function(players) {
         self.players.forEach(function(p) {
             p.socket.emit("turn", self.whose_turn);
         });
+        self.draw_cards_table();
     };
     
     self.draw_cards = function(p) {
-        while(p.hand.length < self.rules.hands.count) {
+        while(self.hand_deck.length && p.hand.length < self.rules.hands.count) {
             var card = self.hand_deck.pop();
             p.hand.push(card);
             p.socket.emit("hand add", card);
@@ -81,6 +87,17 @@ var Game = function(players) {
             self.players.forEach(function(np) {
                 if (p != np)
                     np.socket.emit("hand add hidden", card.id, self.players.indexOf(p)); 
+            });
+        }
+    };
+    
+    self.draw_cards_table = function() {
+        while(self.hand_deck.length && self.table.length < self.rules.table.count) {
+            var card = self.hand_deck.pop();
+            self.table.push(card);
+            
+            self.players.forEach(function(np) {
+                np.socket.emit("table add", card); 
             });
         }
     };
@@ -139,6 +156,9 @@ var Game = function(players) {
     
     // push cards from deck to hands
     self.players.forEach(self.draw_cards);
+    
+    // draw onto table
+    self.draw_cards_table();
     
     // init player resources
     self.players.forEach(function(p) {

@@ -74,5 +74,9 @@
         "count": 3,
         "draw": "after_turn",
         "can_swap": true
+    },
+    "table": {
+        "deck": "actions",
+        "count": 2
     }
 }
