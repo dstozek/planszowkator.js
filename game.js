@@ -40,10 +40,18 @@ var Game = function(players) {
         if (player_id != self.whose_turn) {
             return; // Nope!
         }
+        var matching_card_p = function(c) { return c.id == card_id};
+        var permanent_activated = false;
         
-        var card = _(player.hand).find(function(c) { return c.id == card_id});
+        var card = _(player.hand).find(matching_card_p);
         if (!card) {
-            card = _(self.table).find(function(c) { return c.id == card_id});
+            card = _(self.table).find(matching_card_p);
+        }
+        if (!card) {
+            card = _(player.play_area).find(matching_card_p);
+            if (card) {
+                permanent_activated = true;
+            }
         }
         if (!card) {
             return;
@@ -51,22 +59,23 @@ var Game = function(players) {
         if (!self.is_card_playable(card.definition, player)) {
             return;
         }
-       
-         
-          self.players.forEach(function(p) {
-            p.socket.emit('hand remove', card.id);
-        });
-      
-        if (card.definition.type == "permanent") {
+        
+        if (!permanent_activated) {
+            self.players.forEach(function(p) {
+                p.socket.emit('hand remove', card.id);
+            });
+        }
+        
+        if (card.definition.type == "permanent" && !permanent_activated) {
             // place perms in play area;
             player.play_area.push(card);
             self.players.forEach(function(p) {
                 p.socket.emit('play area add', card, player_id);
             });
-        } else {
-             self.resolve_card(card.definition, player);
         }
-        
+        if (card.definition.type == "instant" || permanent_activated) {
+            self.resolve_card(card.definition, player);
+        }
        
         player.hand = _(player.hand).without(card);
         self.table = _(self.table).without(card);
