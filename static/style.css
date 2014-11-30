@@ -9,8 +9,8 @@ body {
 }
 
 .card {
-    width: 250px;
-    height: 500px;
+    width: 200px;
+    height: 350px;
     float: left;
     border: 1px #ccc solid;
     box-shadow: 12px 9px 52px 3px rgba(0,0,0,0.85);

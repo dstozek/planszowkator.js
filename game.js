@@ -51,13 +51,26 @@ var Game = function(players) {
         if (!self.is_card_playable(card.definition, player)) {
             return;
         }
-        self.resolve_card(card.definition, player);
-        player.hand = _(player.hand).without(card);
-        self.table = _(self.table).without(card);
-        self.players.forEach(function(p) {
+       
+         
+          self.players.forEach(function(p) {
             p.socket.emit('hand remove', card.id);
         });
+      
+        if (card.definition.type == "permanent") {
+            // place perms in play area;
+            player.play_area.push(card);
+            self.players.forEach(function(p) {
+                p.socket.emit('play area add', card, player_id);
+            });
+        } else {
+             self.resolve_card(card.definition, player);
+        }
         
+       
+        player.hand = _(player.hand).without(card);
+        self.table = _(self.table).without(card);
+       
         
         self.draw_cards(player);
         self.pass_turn();

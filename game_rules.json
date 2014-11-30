@@ -4,8 +4,8 @@
             "title": "Black Lotus",
             "description":" Artifact. 0, Discard this card: Gain 3 mana.",
             "flavour_text": "where did you get this?!",
-            "image": "http://placekitten.com/g/200/200/",
-            "type": "instant",
+            "image": "http://placekitten.com/g/161/105",
+            "type": "permanent",
             "conditions": [
                 {
                     "resource": "food",
@@ -23,7 +23,7 @@
             "title": "White Lotus",
             "description": "Artifact. 0, Discard this card: Gain 3 mana.",
             "flavour_text": "where did you get this?!",
-            "image": "http://placekitten.com/g/199/200/",
+            "image": "http://placekitten.com/g/160/105",
             "type": "instant",
             "conditions": [
                 {

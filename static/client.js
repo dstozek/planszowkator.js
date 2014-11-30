@@ -34,13 +34,20 @@ socket.on('Game started', function(player_names, my_idx, rules) {
                 .addClass("list-group-item");
                 $('<h4>').text(p).appendTo(d);
             PLAYER_DIVS[i] = d;
+            
             PLAYER_DIVS[i].hand = $('<div class="hand">').appendTo(d);
             $('<div class="handovr">').appendTo(d);
+            $('<div id="play-area-'+i+'">').appendTo(d);
+            $('<div class="handovr">').appendTo(d);
             res_init(d);
+            
+            
         
         }
 
     });
+    
+    $('<div id="play-area-'+ my_idx +'">').appendTo('#my-play');
     
     res_init($("#my-resources"));
     //$('#my-resources').find("[data-resource=food]")
@@ -90,6 +97,11 @@ socket.on('table add', function(card) {
     console.log("table add", card);
     var c = make_card(card);
     c.appendTo($('#table'));
+});
+
+socket.on('play area add', function(card, player_id) {
+    var c = make_card(card);
+    c.appendTo($('#play-area-'+player_id));
 });
 
 socket.on('hand remove', function(card_id) {
