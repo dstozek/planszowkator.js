@@ -48,10 +48,13 @@ var Game = function(players) {
             return;
         }
         self.resolve_card(card.definition, player);
+        player.hand = _(player.hand).without(card);
         self.players.forEach(function(p) {
             p.socket.emit('hand remove', card.id);
         });
         
+        
+        self.draw_cards(player);
         self.pass_turn();
     };
     

@@ -76,6 +76,7 @@ socket.on('hand add', function(card) {
         socket.emit('play card', card.id);
     });
     d.attr('data-card-id', card.id);
+    d.hide().delay(800).show('fast');
 });
 
 socket.on('hand remove', function(card_id) {
@@ -85,10 +86,12 @@ socket.on('hand remove', function(card_id) {
 
 socket.on('hand add hidden', function(id, player_id) {
     if (PLAYER_DIVS[player_id]) {
-        $('<div>').html('&nbsp;')
+        var d = $('<div>').html('&nbsp;')
             .appendTo(PLAYER_DIVS[player_id].hand)
             .addClass("hidden-card")
             .attr("data-card-id", id);
+            
+         d.hide().delay(800).show('fast');
     }
 });
 
