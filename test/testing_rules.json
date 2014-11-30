@@ -1,0 +1,82 @@
+{
+    "cards": {
+        "blacklotus": {
+            "title": "Black Lotus",
+            "description":" Artifact. 0, Discard this card: Gain 3 mana.",
+            "flavour_text": "where did you get this?!",
+            "image": "http://placekitten.com/g/161/105",
+            "type": "permanent",
+            "conditions": [
+                {
+                    "resource": "food",
+                    "amount": 3
+                }
+            ],
+            "modifiers": [
+                {
+                    "resource": "food",
+                    "change": -2
+                }
+            ]
+        },
+        "whitelotus": {
+            "title": "White Lotus",
+            "description": "Artifact. 0, Discard this card: Gain 3 mana.",
+            "flavour_text": "where did you get this?!",
+            "image": "http://placekitten.com/g/160/105",
+            "type": "instant",
+            "conditions": [
+                {
+                    "resource": "food",
+                    "amount": 4
+                }
+            ],
+            "modifiers": [
+                {
+                    "resource": "food",
+                    "change": 8
+                }
+            ]
+        }
+    },
+    "decks": [
+        {
+            "id": "actions",
+            "cards": {
+                "blacklotus": 10,
+                "whitelotus": 10
+            }
+        }
+    ],
+    "resources": [
+        {
+            "id": "food",
+            "title": "Food",
+            "initial": 10,
+            "icon": "..."
+        },
+        {
+            "id": "gold",
+            "title": "Gold",
+            "initial": 5,
+            "icon": "..."
+        }
+    ],
+    "win_conditions": [
+        {
+            "type": "resource",
+            "resource": "food",
+            "amount": "100"
+        }
+    ],
+    "hands": {
+        "deck": "actions",
+        "count": 3,
+        "draw": "after_turn",
+        "can_swap": true
+    },
+    "table": {
+        "deck": "actions",
+        "count": 2
+    }
+}

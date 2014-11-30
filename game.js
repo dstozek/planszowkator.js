@@ -2,9 +2,13 @@ var fs = require('fs');
 var _ = require('underscore');
 
 
-var DefaultRules = JSON.parse(fs.readFileSync(__dirname + '/game_rules.json', {encoding: 'utf-8'}));
+var DefaultRules = load_rules('game_rules.json');
 
-var Game = function(players) {
+function load_rules(fn) {
+    return JSON.parse(fs.readFileSync(__dirname + '/' + fn, {encoding: 'utf-8'}));
+}
+
+var Game = function(players, rules) {
     
     var self = {
         players: players.slice(0),
@@ -12,8 +16,7 @@ var Game = function(players) {
         decks: {},
         hand_deck: null,
         whose_turn: null,
-        table: [],
-        rules: DefaultRules
+        rules: rules || DefaultRules
     };
     
     
@@ -204,3 +207,4 @@ var Game = function(players) {
 };
 
 exports.Game = Game;
+exports.load_rules = load_rules;

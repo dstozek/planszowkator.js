@@ -3,6 +3,8 @@ var assert = require('assert');
 
 /* global describe, it, beforeEach */
 
+var test_rules = require('../game').load_rules('test/testing_rules.json');
+
 
 function player(name) {
     return {
@@ -19,8 +21,8 @@ describe("Game", function() {
     var g;
     
     beforeEach(function() {
-        g = Game([player("Dom"), player("Kos")]);
-    })
+        g = Game([player("Dom"), player("Kos")], test_rules);
+    });
     
     it("starts", function() {
         assert(g.players.length == 2);
