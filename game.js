@@ -179,6 +179,8 @@ var Game = function(players, rules) {
     self.is_card_playable = function(card_def, player) {
         return _(card_def.conditions).all(function(c) {
             return player.resources[c.resource] >= c.amount;
+        }) && _(card_def.modifiers).all(function(c) {
+            return player.resources[c.resource] + c.change >= 0;
         });
     };
     

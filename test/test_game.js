@@ -56,6 +56,13 @@ describe("Game", function() {
         assert(g.is_card_playable(g.rules.cards.blacklotus, p));
         assert(!g.is_card_playable(g.rules.cards.whitelotus, p));
     });
+    it("tests card cost", function() {
+        var p = g.players[0];
+        p.resources.food = 3;
+        assert( g.is_card_playable({ "conditions": [], "modifiers": []}, p));
+        assert( g.is_card_playable({ "conditions": [], "modifiers": [{"resource": "food", "change": -3}]}, p));
+        assert(!g.is_card_playable({ "conditions": [], "modifiers": [{"resource": "food", "change": -4}]}, p));
+    });    
     it("resolves cards correctly", function() {
         var p = g.players[0];
         p.resources.food = 5;

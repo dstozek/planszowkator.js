@@ -12,6 +12,7 @@ body {
     float: left;
     margin: 24px;    
     cursor: pointer;
+    
 }
 .card-front {
     border: 1px solid #777;
@@ -24,7 +25,7 @@ body {
 .card-back {
     position: absolute;
     padding: 12px;
-    width: 200px; margin-left: -20px;
+    width: 259px; margin-left: -20px;
     height: 350px; margin-top: -225px;
     border: 1px #ccc solid;
     border-radius: 8px;
@@ -32,6 +33,7 @@ body {
     background: #DFEFFF;
     overflow-y: hidden;
     z-index: 1;
+    
 }
 
 .hidden-card {

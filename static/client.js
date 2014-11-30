@@ -79,11 +79,11 @@ var make_card = function(card) {
     var d = card_full;
     //d.text(JSON.stringify(card));
     
-    $('<img src="'+card.definition.image+'">').appendTo(card_miniature);
+    $('<img src="'+card.definition.image+'" width="160" height="100">').appendTo(card_miniature);
     $('<h4>').css('text-align', 'center').text(card.definition.title).appendTo(card_miniature);
     
     $('<em>').text(card.definition.type).wrap('<p>').appendTo(d);
-    $('<img>').attr('src', card.definition.image).appendTo(d);
+    $('<img width="235" height="145">').attr('src', card.definition.image).appendTo(d);
     $('<h3>').text(card.definition.title).appendTo(d);
     $('<p>').text(card.definition.description).appendTo(d);
     var reqs = $('<ul>').appendTo(d);
@@ -95,7 +95,7 @@ var make_card = function(card) {
         var f = c.change < 0?"Costs ":"Gives ";
         $('<li>').text(f + c.change +" "+c.resource).appendTo(mods);
     });
-    $('<p><em>'+card.definition.flavour_text+'</em></p>').appendTo(d);
+    $('<p><em>'+card.definition.flavour_text||""+'</em></p>').appendTo(d);
     
     card_elem.click(function() {
         console.log("playing card", card);

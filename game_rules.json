@@ -1,20 +1,234 @@
 {
     "cards": {
+        "invention": {
+            "title": "Invention",
+            "description": "",
+            "image": "/static/a/invention.png",
+            "type": "instant",
+            "conditions": [{ "resource": "tech", "amount": 5 }],
+            "modifiers": [
+                {"resource": "gold", "change": -2},
+                {"resource": "tech", "change": 4}
+            ]
+        },
+        "fest": {
+            "title": "Feast",
+            "description": "",
+            "image": "/static/a/feast.png",
+            "type": "instant",
+            "conditions": [] ,
+            "modifiers": [
+                {"resource": "gold", "change": -2},
+                {"resource": "culture", "change": 2}
+            ]
+        },
+        "fanatism": {
+            "title": "Fanatism",
+            "description": "",
+            "image": "/static/a/fanatism.png",
+            "type": "instant",
+            "conditions": [{ "resource": "culture", "amount": 4 }],
+            "modifiers": [
+                {"resource": "tech", "change": -2},
+                {"resource": "culture", "change": 2}
+            ]
+        },
+        "leadership": {
+            "title": "Leadership",
+            "description": "",
+            "image": "/static/a/leadership.png",
+            "type": "instant",
+            "conditions": [{ "resource": "culture", "amount": 5 },
+            { "resource": "tech", "amount": 5 } ],
+            "modifiers": [{
+                "resource": "culture", "change": 2
+            }]
+        },
+        "developers": {
+            "title": "Developers",
+            "description": "",
+            "image": "/static/a/developers.png",
+            "type": "instant",
+            "conditions": [{ "resource": "culture", "amount": 5 }],
+            "modifiers": [{
+                "resource": "tech", "change": 2
+            }]
+        },
+        "treasure": {
+            "title": "Treasure",
+            "description": "",
+            "image": "/static/a/treasure.png",
+            "type": "instant",
+            "conditions": [],
+            "modifiers": [
+                {"resource": "gold", "change": 4}
+            ]
+        },
+        "bard": {
+            "title": "Bard",
+            "description": "",
+            "image": "/static/a/bard.png",
+            "type": "instant",
+            "conditions": [],
+            "modifiers": [
+                {"resource": "gold", "change": -2},
+                {"resource": "culture", "change": 2}
+            ]
+        },
+        "industry": {
+            "title": "Industry",
+            "description": "",
+            "image": "/static/a/industry.png",
+            "type": "instant",
+            "conditions": [{ "resource": "tech", "amount": 8 }],
+            "modifiers": [
+                {"resource": "tech", "change": 4},
+                {"resource": "culture", "change": -2}
+            ]
+        },
+        "slavery": {
+            "title": "Slavery",
+            "description": "",
+            "image": "/static/a/slavery.png",
+            "type": "instant",
+            "conditions": [{ "resource": "tech", "amount": 4 }],
+            "modifiers": [
+                {"resource": "gold", "change": 4},
+                {"resource": "culture", "change": -2}
+            ]
+        },
+        "blessing": {
+            "title": "Blessing",
+            "description": "",
+            "image": "/static/a/blessing.png",
+            "type": "instant",
+            "conditions": [{ "resource": "culture", "amount": 7 }],
+            "modifiers": [
+                {"resource": "gold", "change": 2},
+                {"resource": "tech", "change": 2},
+                {"resource": "culture", "change": 2}
+            ]
+        },
+        "coin": {
+            "title": "Coin",
+            "description": "",
+            "image": "/static/a/coin.png",
+            "type": "instant",
+            "conditions": [],
+            "modifiers": [
+                {"resource": "gold", "change": 2}
+            ]
+        },
+        "magic": {
+            "title": "Magic",
+            "description": "",
+            "image": "/static/a/magic.png",
+            "type": "instant",
+            "conditions": [],
+            "modifiers": [
+                {"resource": "gold", "change": 2},
+                {"resource": "tech", "change": -2}
+            ]
+        },
+        "idea": {
+            "title": "Idea",
+            "description": "",
+            "image": "/static/a/idea.png",
+            "type": "instant",
+            "conditions": [],
+            "modifiers": [{
+                "resource": "tech", "change": 2
+            }]
+        },
+        "success": {
+            "title": "Power",
+            "description": "",
+            "image": "/static/a/power.png",
+            "type": "instant",
+            "conditions": [{ "resource": "tech", "amount": 6 }, { "resource": "culture", "amount": 6 }],
+            "modifiers": [
+                {"resource": "gold", "change": 2},
+                {"resource": "tech", "change": 2}
+            ]
+        },
+        
+        "academia": {
+            "title": "Academia",
+            "description": "",
+            "image": "/static/a/akademia.png",
+            "type": "permanent",
+            "conditions": [{ "resource": "tech", "amount": 10 }, { "resource": "culture", "amount": 10 }],
+            "modifiers": [
+                {"resource": "gold", "change": -1},
+                {"resource": "tech", "change": 2}
+            ]
+        },
+        "market": {
+            "title": "Market",
+            "description": "",
+            "image": "/static/a/market.png",
+            "type": "permanent",
+            "conditions": [],
+            "modifiers": [{
+                "resource": "gold", "change": 1
+            }]
+        },
+        "theatre": {
+            "title": "Theatre",
+            "description": "",
+            "image": "/static/a/theatre.png",
+            "type": "permanent",
+            "conditions": [{ "resource": "tech", "amount": 7 }],
+            "modifiers": [
+                {"resource": "gold", "change": -1},
+                {"resource": "culture", "change": 1} 
+            ]
+        },
+        "temple": {
+            "title": "Temple",
+            "description": "",
+            "image": "/static/a/temple.png",
+            "type": "permanent",
+            "conditions": [{ "resource": "tech", "amount": 10 }],
+            "modifiers": [
+                {"resource": "gold", "change": -1},
+                {"resource": "culture", "change": 1}
+            ]
+        },
+        "workshop": {
+            "title": "Workshop",
+            "description": "",
+            "image": "/static/a/workshop.png",
+            "type": "permanent",
+            "conditions": [],
+            "modifiers": [{
+                "resource": "tech", "change": 1
+            }]
+        },
+        "tavern": {
+            "title": "Tavern",
+            "description": "",
+            "image": "/static/a/tavern.png",
+            "type": "permanent",
+            "conditions": [],
+            "modifiers": [
+                {"resource": "gold", "change": -2},
+                {"resource": "culture", "change": 1}
+            ]
+        },
+        
+        
+                
         "blacklotus": {
             "title": "Black Lotus",
             "description":" Artifact. 0, Discard this card: Gain 3 mana.",
             "flavour_text": "where did you get this?!",
             "image": "http://placekitten.com/g/161/105",
             "type": "permanent",
-            "conditions": [
-                {
-                    "resource": "food",
-                    "amount": 3
-                }
-            ],
+            "conditions": [],
             "modifiers": [
                 {
-                    "resource": "food",
+                    "resource": "gold",
                     "change": -2
                 }
             ]
@@ -25,16 +239,11 @@
             "flavour_text": "where did you get this?!",
             "image": "http://placekitten.com/g/160/105",
             "type": "instant",
-            "conditions": [
-                {
-                    "resource": "food",
-                    "amount": 4
-                }
-            ],
+            "conditions": [],
             "modifiers": [
                 {
-                    "resource": "food",
-                    "change": 8
+                    "resource": "gold",
+                    "change": 1
                 }
             ]
         }
@@ -43,30 +252,56 @@
         {
             "id": "actions",
             "cards": {
-                "blacklotus": 10,
-                "whitelotus": 10
+                "invention": 5,
+                "fest": 5,
+                "fanatism": 3,
+                "leadership": 5,
+                "developers": 8,
+                "treasure": 3,
+                "bard": 5,
+                "industry": 3,
+                "slavery": 3,
+                "blessing": 3,
+                "coin": 8,
+                "magic": 5,
+                "idea": 5,
+                "success": 5,
+                "academia": 4,
+                "market": 4,
+                "theatre": 4,
+                "temple": 4,
+                "workshop": 4,
+                "tavern": 4,
+                "blacklotus": 1,
+                "whitelotus": 1
             }
         }
     ],
     "resources": [
         {
-            "id": "food",
-            "title": "Food",
-            "initial": 10,
+            "id": "tech",
+            "title": "Technology",
+            "initial": 0,
+            "icon": "..."
+        },
+        {
+            "id": "culture",
+            "title": "Culture",
+            "initial": 0,
             "icon": "..."
         },
         {
             "id": "gold",
             "title": "Gold",
-            "initial": 5,
+            "initial": 3,
             "icon": "..."
         }
     ],
     "win_conditions": [
         {
             "type": "resource",
-            "resource": "food",
-            "amount": 5
+            "resource": "culture",
+            "amount": 50
         }
     ],
     "hands": {
