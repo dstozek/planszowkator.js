@@ -306,12 +306,12 @@
     ],
     "hands": {
         "deck": "actions",
-        "count": 3,
+        "count": 2,
         "draw": "after_turn",
         "can_swap": true
     },
     "table": {
         "deck": "actions",
-        "count": 2
+        "count": 5
     }
 }

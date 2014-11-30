@@ -2,6 +2,13 @@ body {
     font-family: 'Walter Turncoat', cursive;
     font-size: 1.3em;
     margin: 48px;
+    
+    background-image: url("/static/a/back.jpg");
+    background-size: cover;
+}
+
+.c1 {
+    background: white;
 }
 
 .active {
