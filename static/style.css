@@ -9,17 +9,26 @@ body {
 }
 
 .card {
-    width: 200px;
-    height: 350px;
     float: left;
+    margin: 24px;    
+    cursor: pointer;
+    border: 1px solid #777;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 1px 1px 8px rgba(0,0,0,0.5);
+}
+
+.card-back {
+    position: absolute;
+    padding: 12px;
+    width: 200px; margin-left: -20px;
+    height: 350px; margin-top: -225px;
     border: 1px #ccc solid;
+    border-radius: 8px;
     box-shadow: 12px 9px 52px 3px rgba(0,0,0,0.85);
     background: #DFEFFF;
-    cursor: pointer;
-    padding: 12px;
-    margin: 24px;
-    
     overflow-y: hidden;
+    z-index: 1;
 }
 
 .hidden-card {
@@ -29,7 +38,6 @@ body {
     background: #f44;
     border: 1px #ccc solid;
     margin: 6px;
-
 }
 
 .handovr {
@@ -46,6 +54,7 @@ body {
 #my-turn-indicator {
      animation: blink 1s linear infinite;
     -webkit-animation: blink 1s linear infinite;
+    -moz-animation: blink 1s linear infinite;
 }
 
 @keyframes blink {  

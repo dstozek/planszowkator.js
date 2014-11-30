@@ -62,13 +62,19 @@ socket.on('Game over', function() {
 });
 
 var make_card = function(card) {
-    var d = $('<div>').addClass("card");
+    var card_elem = $('<div>').addClass("card");
+    var card_miniature = $('<div>').addClass('card-front').appendTo(card_elem);
+    var card_full = $('<div>').addClass("card-back").appendTo(card_elem).hide();
+    var d = card_full;
     //d.text(JSON.stringify(card));
     
-    $('<p><em>'+card.definition.type+'</em></p>').appendTo(d);
-    $('<img src="'+card.definition.image+'">').appendTo(d);
-    $('<h3>'+card.definition.title+'</h3>').appendTo(d);
-    $('<p>'+card.definition.description+'</p>').appendTo(d);
+    $('<img src="'+card.definition.image+'">').appendTo(card_miniature);
+    $('<h4>').css('text-align', 'center').text(card.definition.title).appendTo(card_miniature);
+    
+    $('<em>').text(card.definition.type).wrap('<p>').appendTo(d);
+    $('<img>').attr('src', card.definition.image).appendTo(d);
+    $('<h3>').text(card.definition.title).appendTo(d);
+    $('<p>').text(card.definition.description).appendTo(d);
     var reqs = $('<ul>').appendTo(d);
     card.definition.conditions.forEach(function(c) {
         $('<li>').text("Requires " + c.amount +" "+c.resource).appendTo(reqs);
@@ -80,14 +86,18 @@ var make_card = function(card) {
     });
     $('<p><em>'+card.definition.flavour_text+'</em></p>').appendTo(d);
     
-    d.click(function() {
+    card_elem.click(function() {
         console.log("playing card", card);
         socket.emit('play card', card.id);
     });
-    d.attr('data-card-id', card.id);
-    d.hide().delay(800).show('fast');
+    card_elem.attr('data-card-id', card.id);
+    card_elem.hide().delay(800).show('fast');
+
+    var a = 'fast';
+    card_miniature.mouseenter(function() {card_full.fadeIn(a)});
+    card_elem.mouseleave(function() {card_full.fadeOut(a)});
     
-    return d;
+    return card_elem;
 }
 
 socket.on('hand add', function(card) {
