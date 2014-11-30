@@ -63,24 +63,39 @@ var Game = function(players, rules) {
             return;
         }
         
-        if (!permanent_activated) {
+        if (card.definition.type == "permanent") {
+            if (permanent_activated)
+            {
+                // perm activation
+                
+                self.players.forEach(function(p) {
+                    p.socket.emit('activate card', card.id);
+                });
+                
+                self.resolve_card(card.definition, player);
+            } else {
+                
+                // perm to play area
+                
+                self.players.forEach(function(p) {
+                    p.socket.emit('hand remove', card.id);
+                });
+                
+                
+                player.play_area.push(card);
+                
+                self.players.forEach(function(p) {
+                    p.socket.emit('play area add', card, player_id);
+                });
+                
+            }
+        } else {
+            
+            // insta
             self.players.forEach(function(p) {
                 p.socket.emit('hand remove', card.id);
             });
-        } else {
-            self.players.forEach(function(p) {
-                p.socket.emit('activate card', card.id);
-            });
-        }
-        
-        if (card.definition.type == "permanent" && !permanent_activated) {
-            // place perms in play area;
-            player.play_area.push(card);
-            self.players.forEach(function(p) {
-                p.socket.emit('play area add', card, player_id);
-            });
-        }
-        if (card.definition.type == "instant" || permanent_activated) {
+            
             self.resolve_card(card.definition, player);
         }
        

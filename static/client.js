@@ -133,13 +133,11 @@ socket.on('hand add hidden', function(id, player_id) {
 });
 
 socket.on('activate card', function(card_id) {
-    $('[data-card-id='+card_id+']').css('position', 'relative')
-    .animate({
-        top: '-50px'
-    }, 'fast')
-    .animate({
-        top: '0'
-    }, 'slow');
+    var e = $('[data-card-id='+card_id+']').find('.card-front');
+    e.css('transform', 'rotate(90deg)');
+    setTimeout(function() {
+        e.css('transform', 'rotate(0deg)');
+    }, 1200);
 });
 
 socket.on('turn', function(player_id) {

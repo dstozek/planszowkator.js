@@ -12,10 +12,13 @@ body {
     float: left;
     margin: 24px;    
     cursor: pointer;
+}
+.card-front {
     border: 1px solid #777;
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 1px 1px 8px rgba(0,0,0,0.5);
+    transition: transform 0.4s;
 }
 
 .card-back {
