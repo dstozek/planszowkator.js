@@ -104,7 +104,37 @@ var Game = function(players, rules) {
        
         
         self.draw_cards(player);
-        self.pass_turn();
+        
+        if (self.is_win_condition()) {
+            return;
+        }
+        
+        self.pass_turn();    
+        
+    };
+    
+    self.is_win_condition = function() {
+       var winner = _(self.players).find(function(p) {
+          
+           return _(self.rules.win_conditions).any(function(c) {
+               return p.resources[c.resource] >= c.amount;
+           });
+           
+       });
+       
+       if (winner) {
+           // go to win state
+           
+            self.players.forEach(function(p) {
+                p.socket.emit('winner', self.players.indexOf(winner));
+            });
+       
+            self.whose_turn = -1;
+           
+            return true;
+       }
+       
+       return false;
     };
     
     self.pass_turn = function(turn) {

@@ -48,7 +48,7 @@ io.on('connection', function (socket) {
     socket.on('play card', function(card_id) {
        if (player.game) {
            player.game.play_card(player, card_id);
-       } 
+       }
     });
     
 });

@@ -61,6 +61,17 @@ socket.on('Game over', function() {
     $('#gameover').show();
 });
 
+socket.on('winner', function(winner_id) {
+    console.log('winner');
+    $('#game').hide();
+    var winmsg = (winner_id === MY_IDX)?
+                    "Congratulations, you won!":
+                    "You lost. Better luck next time!";
+    
+    $('#game-over-message').text(winmsg);
+    $('#gameover').show();
+});
+
 var make_card = function(card) {
     var card_elem = $('<div>').addClass("card");
     var card_miniature = $('<div>').addClass('card-front').appendTo(card_elem);

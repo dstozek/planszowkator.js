@@ -7,13 +7,15 @@ var test_rules = require('../game').load_rules('test/testing_rules.json');
 
 
 function player(name) {
-    return {
+    var p = {
         name: name,
         socket: {
-            emit: function() {},
+            emit: function(msg) { this.lastmsg = [msg, arguments]},
             on: function() {}
         }
     };
+    return p;
+    
 }
 
 describe("Game", function() {
@@ -69,5 +71,18 @@ describe("Game", function() {
         g.play_card(p, p.hand[0].id);
         assert(p.resources.food == 3);
     });
+    it("is winnable", function() {
+        var p = g.players[0];
+        p.resources.food = 5;
+        p.hand[0].definition = {
+            type: "instant", conditions: [],
+            modifiers: [{"resource": "food", "change": 45}]};
+        g.play_card(p, p.hand[0].id);
+        assert(g.players[0].socket.lastmsg[0] == 'winner');
+        assert.equal(g.players[1].socket.lastmsg[1][1], 0);
+        assert.equal(g.whose_turn, -1);
+    });
+    
+    
     
 });
