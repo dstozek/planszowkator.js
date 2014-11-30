@@ -13,6 +13,7 @@ socket.on('lobby list', function(names) {
 });
 
 var PLAYER_DIVS = [];
+var PLAYER_NAMES = [];
 var MY_IDX = null;
 var MY_NICK = null;
 
@@ -20,6 +21,7 @@ socket.on('Game started', function(player_names, my_idx, rules) {
     $('#lobby').hide();
     $('#game').show();
     MY_IDX = my_idx;
+    PLAYER_NAMES = player_names;
     
     var res_init = function(container) {
         rules.resources.forEach(function(resource) {
@@ -133,11 +135,12 @@ socket.on('activate card', function(card_id) {
 socket.on('turn', function(player_id) {
     console.log("It's player "+player_id+"'s turn now.");
     if (player_id == MY_IDX) {
-        $("#my-turn-indicator").show('slow');
+        $("#my-turn-indicator").fadeIn('fast');
+        $("#other-turn-indicator").fadeOut('fast');
     } else {
-        $("#my-turn-indicator").hide('slow');
+        $("#my-turn-indicator").fadeOut('fast');
+        $("#other-turn-indicator").fadeIn('fast').text('Turn: ' + PLAYER_NAMES[player_id]);
     }
-    
 });
 
 socket.on('update resources', function(player_id, resources) {
