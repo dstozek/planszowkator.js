@@ -22,12 +22,14 @@ io.on('connection', function (socket) {
         game: null,
     };
     
+    
     Lobby.send_list_to(player);
     
     socket.on('name', function(name) {
         if (player.name) {
             return;
         }
+        socket.player = player;
         player.name = name;
         Lobby.add_player(player);
     });
@@ -63,10 +65,18 @@ var Lobby = (function() {
         }
         self.players.push(p);
         self.players.forEach(self.send_list_to);
+        _(io.of("/").connected).pairs().forEach(function(s){
+            // for every socket that does not have a player yet
+            if (s[1].player) return;
+            self.send_list_to(s[1]);
+        });
     };
     
     self.send_list_to = function(p) {
-        p.socket.emit('lobby list', _(self.players).pluck('name'));
+        if (p.socket) {
+            p = p.socket;
+        }
+        p.emit('lobby list', _(self.players).pluck('name'));
     };
     
     self.can_player_start_game = function(p) {

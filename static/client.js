@@ -6,11 +6,15 @@ socket.on('lobby list', function(names) {
     names.forEach(function(n) {
         $('<li>').text(n).appendTo($('#players')).addClass("list-group-item"); 
     });
+    if (names.length >= 2 && MY_NICK){
+        console.log("Start enabled")
+        $("#lobby-start").show();
+    }
 });
 
 var PLAYER_DIVS = [];
 var MY_IDX = null;
-
+var MY_NICK = null;
 
 socket.on('Game started', function(player_names, my_idx, rules) {
     $('#lobby').hide();
@@ -26,9 +30,12 @@ socket.on('Game started', function(player_names, my_idx, rules) {
     
     player_names.forEach(function (p, i) {
         if (i != my_idx) {
-            var d = $('<div>').text(p).appendTo($('#players-game'))
+            var d = $('<div>').appendTo($('#players-game'))
                 .addClass("list-group-item");
+                $('<h4>').text(p).appendTo(d);
             PLAYER_DIVS[i] = d;
+            PLAYER_DIVS[i].hand = $('<div class="hand">').appendTo(d);
+            $('<div class="handovr">').appendTo(d);
             res_init(d);
         
         }
@@ -67,14 +74,21 @@ socket.on('hand add', function(card) {
     d.click(function() {
         console.log("playing card", card);
         socket.emit('play card', card.id);
-        
     });
+    d.attr('data-card-id', card.id);
 });
 
+socket.on('hand remove', function(card_id) {
+    console.log("hand remove", card_id);
+    $('[data-card-id='+card_id+']').hide('fast');
+});
 
-socket.on('hand add hidden', function(id) {
-    if (PLAYER_DIVS[id]) {
-        $('<div>').text('Hidden card').appendTo(PLAYER_DIVS[id]);
+socket.on('hand add hidden', function(id, player_id) {
+    if (PLAYER_DIVS[player_id]) {
+        $('<div>').html('&nbsp;')
+            .appendTo(PLAYER_DIVS[player_id].hand)
+            .addClass("hidden-card")
+            .attr("data-card-id", id);
     }
 });
 
@@ -101,8 +115,10 @@ socket.on('update resources', function(player_id, resources) {
 $('#nick_accept').click(function() {
     var n = $('#nick').val();
     if (!n) return;
+    MY_NICK = n;
     console.log("emit", n);
     socket.emit('name', n);
+    $("#lobby-login").hide();
 });
 $('#start_game').click(function() {
     socket.emit('start_game');

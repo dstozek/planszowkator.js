@@ -29,9 +29,9 @@ describe("Game", function() {
     it("has turns", function() {
         var g = Game([player("Dom"), player("Kos")]);
         assert(g.whose_turn === 0);
-        g.play_card(g.players[0], 0);
+        g.play_card(g.players[0], g.players[0].hand[0].id);
         assert(g.whose_turn === 1);
-        g.play_card(g.players[1], 0);
+        g.play_card(g.players[1], g.players[1].hand[0].id);
         assert(g.whose_turn === 0);
     });
     it("disallows out of order play", function() {
@@ -42,7 +42,7 @@ describe("Game", function() {
     });
     it("describes resources", function() {
         var g = Game([player("Dom"), player("Kos")]);
-        assert.deepEqual(g.players[0].resources, {food: 0});
+        assert.deepEqual(g.players[0].resources, {food: 10, gold: 5});
     });
     it("tests card preconditions", function() {
         var g = Game([player("Dom"), player("Kos")]);
@@ -57,6 +57,13 @@ describe("Game", function() {
         p.resources.food = 5;
         g.resolve_card(g.rules.cards.blacklotus, p);
         assert.equal(p.resources.food, 3);
+    });
+    it("resolves cards after play", function() {
+        var g = Game([player("Dom"), player("Kos")]);
+        var p = g.players[0];
+        p.resources.food = 5;
+        g.play_card(p, p.hand[0].id);
+        assert(p.resources.food != 5);
     });
     
 });

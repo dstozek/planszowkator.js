@@ -71,7 +71,7 @@
     ],
     "hands": {
         "deck": "actions",
-        "count": 2,
+        "count": 8,
         "draw": "after_turn",
         "can_swap": true
     }

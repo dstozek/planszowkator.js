@@ -34,12 +34,24 @@ var Game = function(players) {
         
     };
     
-    self.play_card = function(player, card) {
+    self.play_card = function(player, card_id) {
         var player_id = self.players.indexOf(player);
         if (player_id != self.whose_turn) {
             return; // Nope!
         }
-        var player = self.players[player_id];
+        
+        var card = _(player.hand).find(function(c) { return c.id == card_id});
+        if (!card) {
+            return;
+        }
+        if (!self.is_card_playable(card.definition, player)) {
+            return;
+        }
+        self.resolve_card(card.definition, player);
+        self.players.forEach(function(p) {
+            p.socket.emit('hand remove', card.id);
+        });
+        
         self.pass_turn();
     };
     
@@ -65,7 +77,7 @@ var Game = function(players) {
  
             self.players.forEach(function(np) {
                 if (p != np)
-                    np.socket.emit("hand add hidden", self.players.indexOf(p)); 
+                    np.socket.emit("hand add hidden", card.id, self.players.indexOf(p)); 
             });
         }
     };
@@ -89,7 +101,7 @@ var Game = function(players) {
             recv_player.socket.emit("update resources",
                                     self.players.indexOf(player), player.resources);
         });
-    }
+    };
     
     players.forEach(function(p) {
         p.game = self;
