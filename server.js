@@ -70,7 +70,7 @@ var Lobby = (function() {
     };
     
     self.can_player_start_game = function(p) {
-        return self.players.length >= 2 && _(self.players).contains(p);
+        return self.players.length >= 1 && _(self.players).contains(p);
     };
     
     self.start_game = function() {

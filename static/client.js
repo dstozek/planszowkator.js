@@ -1,10 +1,10 @@
-/* global io */
+/* global io, _ */
 var socket = io.connect('/');
 
 socket.on('lobby list', function(names) {
     $('#players').html('');
     names.forEach(function(n) {
-        $('<li>').text(n).appendTo($('#players')).addClass("list-group-item");
+        $('<li>').text(n).appendTo($('#players')).addClass("list-group-item"); 
     });
 });
 
@@ -12,18 +12,32 @@ var PLAYER_DIVS = [];
 var MY_IDX = null;
 
 
-socket.on('Game started', function(player_names, my_idx) {
+socket.on('Game started', function(player_names, my_idx, rules) {
     $('#lobby').hide();
     $('#game').show();
     MY_IDX = my_idx;
+    
+    var res_init = function(container) {
+        rules.resources.forEach(function(resource) {
+            var r = $('<div>').text(resource.title + ": ").appendTo(container);
+            $('<span>').attr('data-resource', resource.id).appendTo(r);
+        });    
+    };
+    
     player_names.forEach(function (p, i) {
         if (i != my_idx) {
             var d = $('<div>').text(p).appendTo($('#players-game'))
                 .addClass("list-group-item");
             PLAYER_DIVS[i] = d;
+            res_init(d);
+        
         }
+
     });
     
+    res_init($("#my-resources"));
+    //$('#my-resources').find("[data-resource=food]")
+    //PLAYER_DIVS[n].find("[data-resource=food]")
 });
 
 socket.on('Game over', function() {
@@ -32,7 +46,24 @@ socket.on('Game over', function() {
 });
 
 socket.on('hand add', function(card) {
-    var d = $('<div>').text(JSON.stringify(card)).appendTo($('#my-hand')).addClass("list-group-item");
+    var d = $('<div>').appendTo($('#my-hand')).addClass("card");
+    //d.text(JSON.stringify(card));
+    
+    $('<p><em>'+card.definition.type+'</em></p>').appendTo(d);
+    $('<img src="'+card.definition.image+'">').appendTo(d);
+    $('<h3>'+card.definition.title+'</h3>').appendTo(d);
+    $('<p>'+card.definition.description+'</p>').appendTo(d);
+    var reqs = $('<ul>').appendTo(d);
+    card.definition.conditions.forEach(function(c) {
+        $('<li>').text("Requires " + c.amount +" "+c.resource).appendTo(reqs);
+    });
+    var mods = $('<ul>').appendTo(d);
+    card.definition.modifiers.forEach(function(c) {
+        var f = c.change < 0?"Costs ":"Gives ";
+        $('<li>').text(f + c.change +" "+c.resource).appendTo(mods);
+    });
+    $('<p><em>'+card.definition.flavour_text+'</em></p>').appendTo(d);
+    
     d.click(function() {
         console.log("playing card", card);
         socket.emit('play card', card.id);
@@ -51,6 +82,20 @@ socket.on('turn', function(player_id) {
     console.log("It's player "+player_id+"'s turn now.");
     $("#my-hand").toggleClass("active", player_id == MY_IDX);
     
+});
+
+socket.on('update resources', function(player_id, resources) {
+    console.log('update resources', player_id, resources);
+    var part;
+    if (player_id == MY_IDX) {
+        part = $('#my-resources');
+    } else {
+        part = PLAYER_DIVS[player_id];
+    }
+    _(resources).pairs().forEach(function(pair) {
+        var res_name = pair[0], value = pair[1];
+        part.find("[data-resource="+res_name+"]").text(value);
+    });
 });
 
 $('#nick_accept').click(function() {

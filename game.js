@@ -80,14 +80,24 @@ var Game = function(players) {
         card_def.modifiers.forEach(function(m) {
              player.resources[m.resource] += m.change;
         });
+        
+        self.update_resources(player);
     };
+    
+    self.update_resources = function(player) {
+        self.players.forEach(function(recv_player) {
+            recv_player.socket.emit("update resources",
+                                    self.players.indexOf(player), player.resources);
+        });
+    }
     
     players.forEach(function(p) {
         p.game = self;
         p.hand = [];
         p.play_area = [];
         p.game_id = players.indexOf;
-        p.socket.emit("Game started", _(self.players).pluck("name"), self.players.indexOf(p));
+        p.socket.emit("Game started", _(self.players).pluck("name"),
+                      self.players.indexOf(p), self.rules);
     });
     
     // initialize decks
@@ -121,6 +131,7 @@ var Game = function(players) {
             .map(function(d) { return [d.id, d.initial] })
             .object()
             .value();
+        self.update_resources(p);
     });
     
     
