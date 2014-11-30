@@ -64,6 +64,10 @@ var Game = function(players) {
             self.players.forEach(function(p) {
                 p.socket.emit('hand remove', card.id);
             });
+        } else {
+            self.players.forEach(function(p) {
+                p.socket.emit('activate card', card.id);
+            });
         }
         
         if (card.definition.type == "permanent" && !permanent_activated) {

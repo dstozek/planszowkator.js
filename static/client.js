@@ -120,6 +120,16 @@ socket.on('hand add hidden', function(id, player_id) {
     }
 });
 
+socket.on('activate card', function(card_id) {
+    $('[data-card-id='+card_id+']').css('position', 'relative')
+    .animate({
+        top: '-50px'
+    }, 'fast')
+    .animate({
+        top: '0'
+    }, 'slow');
+});
+
 socket.on('turn', function(player_id) {
     console.log("It's player "+player_id+"'s turn now.");
     if (player_id == MY_IDX) {
