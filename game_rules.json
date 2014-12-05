@@ -262,18 +262,18 @@
                 "industry": 3,
                 "slavery": 3,
                 "blessing": 3,
-                "coin": 8,
+                "coin": 12,
                 "magic": 5,
-                "idea": 5,
+                "idea": 8,
                 "success": 5,
                 "academia": 4,
-                "market": 4,
+                "market": 8,
                 "theatre": 4,
                 "temple": 4,
-                "workshop": 4,
-                "tavern": 4,
-                "blacklotus": 1,
-                "whitelotus": 1
+                "workshop": 8,
+                "tavern": 8,
+                "blacklotus": 3,
+                "whitelotus": 3
             }
         }
     ],
@@ -301,17 +301,17 @@
         {
             "type": "resource",
             "resource": "culture",
-            "amount": 50
+            "amount": 25
         }
     ],
     "hands": {
         "deck": "actions",
-        "count": 2,
+        "count": 3,
         "draw": "after_turn",
         "can_swap": true
     },
     "table": {
         "deck": "actions",
-        "count": 5
+        "count": 10
     }
 }
